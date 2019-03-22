@@ -21,35 +21,35 @@ Create a GitHub repository with an RMarkdown file containing an executive summar
 Submit a link to the GitHub repository via the space provided for the Case Study 02 page in 2DS. 
 
 Your Presentation should be in this outline
-
+<p>
 ¥	Title
-    ¥	Authors all listed
-¥	Presentation Outline
-    ¥	Business Objectives
-    ¥	Data Sourced
-    ¥	Methodology
-    ¥	Evaluation/Results
-    ¥	Summary
-¥	Business Objectives
-¥	Data Source	
-    ¥	Where you got it 
-    ¥	Basic Statistics (EDA)
-¥	Methodology	
-    ¥	Steps 
-    ¥	Workflow
-¥	Evaluation/Results
-    ¥	Tell me the percentages and why
-    ¥	Show me graphs with explanations
-    ¥	The top three factors that contribute to turnover
-    ¥	Tell me about any job role specific trends that may exist in the data set
-    ¥	Provide any other interesting trends and observations from your analysis
-    ¥	Other things to consider?
-¥	Summary 
-    ¥	Insights
-    ¥	Recommendations
-    ¥	Improvements
-    ¥	Questions
-
+<br>    ¥	Authors all listed
+<br> ¥	Presentation Outline
+<br>     ¥	Business Objectives
+<br>     ¥	Data Sourced
+<br>     ¥	Methodology
+<br>     ¥	Evaluation/Results
+<br>     ¥	Summary
+<br> ¥	Business Objectives
+<br> ¥	Data Source	
+<br>     ¥	Where you got it 
+<br>     ¥	Basic Statistics (EDA)
+<br> ¥	Methodology	
+<br>     ¥	Steps 
+<br>     ¥	Workflow
+<br> ¥	Evaluation/Results
+<br>     ¥	Tell me the percentages and why
+<br>     ¥	Show me graphs with explanations
+<br>     ¥	The top three factors that contribute to turnover
+<br>     ¥	Tell me about any job role specific trends that may exist in the data set
+<br>     ¥	Provide any other interesting trends and observations from your analysis
+<br>     ¥	Other things to consider?
+<br> ¥	Summary 
+<br>     ¥	Insights
+<br>     ¥	Recommendations
+<br>     ¥	Improvements
+<br>     ¥	Questions
+</p>
 Have your presentation ready to present on during live session 15. 
 
 NO CODE should be present in your presentation. (ie variable names is Mon_Age this should in your presentation as age). You code should be in your GitHub and RMarkdown File.  
