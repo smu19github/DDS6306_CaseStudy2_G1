@@ -25,11 +25,13 @@ Your Presentation should be in this outline
 ¥	Title
 <br>    ¥	Authors all listed
 <br> ¥	Presentation Outline
-<br>     ¥	Business Objectives
-<br>     ¥	Data Sourced
-<br>     ¥	Methodology
-<br>     ¥	Evaluation/Results
-<br>     ¥	Summary
+<dl>
+<li>     ¥	Business Objectives </li>
+<li>     ¥	Data Sourced </li>
+<li>     ¥	Methodology </li>
+<li>     ¥	Evaluation/Results </li>
+<li>     ¥	Summary </li>
+</dl>
 <br> ¥	Business Objectives
 <br> ¥	Data Source	
 <br>     ¥	Where you got it 
