@@ -22,15 +22,15 @@ Submit a link to the GitHub repository via the space provided for the Case Study
 
 Your Presentation should be in this outline
 <p>
-¥	Title
-<br>    ¥	Authors all listed
-<br> ¥	Presentation Outline
+	Title
+<li>   	Authors all listed </li>
+ 	Presentation Outline
 <dl>
-<li>     ¥	Business Objectives </li>
-<li>     ¥	Data Sourced </li>
-<li>     ¥	Methodology </li>
-<li>     ¥	Evaluation/Results </li>
-<li>     ¥	Summary </li>
+<li>     Business Objectives </li>
+<li>     Data Sourced </li>
+<li>     Methodology </li>
+<li>     Evaluation/Results </li>
+<li>     Summary </li>
 </dl>
 <br> ¥	Business Objectives
 <br> ¥	Data Source	
