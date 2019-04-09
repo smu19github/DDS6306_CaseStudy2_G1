@@ -21,7 +21,7 @@ Create a GitHub repository with an RMarkdown file containing an executive summar
 Submit a link to the GitHub repository via the space provided for the Case Study 02 page in 2DS. 
 
 Your Presentation should be in this outline
-<p>
+
 	Title
 <li>   	Authors all listed </li>
  	Presentation Outline
