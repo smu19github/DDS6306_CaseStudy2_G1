@@ -10,6 +10,28 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ```{r libraryload}
 library(tidyverse)
+library(dplyr)
 
+library(readr)
+cs2data <- read_csv("CaseStudy2-data.csv")
+cs2data
+View(cs2data)
+head(cs2data)
 ```
-
+```{r}
+cs2data %>% summarise_all(funs(n_distinct(.)))
+unique(CaseStudy2_data$BusinessTravel)
+unique(CaseStudy2_data$Age)
+unique(CaseStudy2_data$Attrition)
+unique(CaseStudy2_data$BusinessTravel)
+unique(CaseStudy2_data$Department)
+unique(CaseStudy2_data$DistanceFromHome)
+unique(CaseStudy2_data$Education)
+unique(CaseStudy2_data$EducationField)
+unique(CaseStudy2_data$EnvironmentSatisfaction)
+unique(CaseStudy2_data$Gender)
+unique(CaseStudy2_data$HourlyRate)
+unique(CaseStudy2_data$JobInvolvement)
+unique(CaseStudy2_data)
+CaseStudy2_data %>% summarise_all(funs(n_distinct(.)))
+```
