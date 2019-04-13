@@ -1,0 +1,222 @@
+---
+title: "CS2_SJ"
+author: "Stephen Johnson"
+date: "April 9, 2019"
+output: html_document
+---
+
+##2. Clean your Raw Data
+
+##a.	Read the csv into R and take a look at the data set.  Output how many rows and columns the data.frame is.
+```{r echo=TRUE}
+setwd("C:\\Users\\sj103\\OneDrive\\Documents\\MSDS_Working\\CaseStudy_02")
+attrition <-read.csv(file="CaseStudy2-data - Copy.csv", header=TRUE, sep=",")
+summary(attrition)
+nrow(attrition)
+ncol(attrition)
+```
+
+##b. Change the column names so that they do not have spaces, underscores, slashes, and the like.
+```{r}
+library(janitor)
+
+attrition = attrition %>% clean_names()
+# names(attrition)  = gsub("_","", names(attrition))
+```
+#c	Some columns are, due to Qualtrics, malfunctioning.
+
+
+#d	Make sure your columns are the proper data types (i.e., numeric, character, etc.).  If they are incorrect, convert them. 
+```{r}
+str(attrition)
+```
+
+#3.	Preliminary Analysis
+#a	Remove all observations where the participant is under age 18.  No further analysis of underage individuals is permitted by your client.  Remove any other age outliers as you see fit, but be sure to tell what you're doing and why.
+```{r}
+library(dplyr)
+attrition = attrition %>% filter(age>=18)
+```
+
+#b	Please provide (in table format or similar), descriptive statistics on at least 7 variables (age, Income, etc.).  Create a simple histogram for two of them.  Comment on the shape of the distribution in your markdown.
+```{r}
+library(ggplot2)
+library(knitr)
+
+summary(attrition %>% select(age,monthly_income,education,performance_rating,job_satisfaction,num_companies_worked,work_life_balance))
+
+kable(summary(attrition %>% select(age,monthly_income,education,performance_rating,job_satisfaction,num_companies_worked,work_life_balance)))
+
+
+attrition %>% 
+  ggplot(aes(x = age))+geom_histogram(color = 'black')
+attrition %>% 
+  ggplot(aes(x = monthly_income))+geom_histogram(color = 'black')
+
+```
+#c	Give the frequencies (in table format or similar) for Gender, Education, and Occupation.  They can be separate tables, if that's your choice.
+```{r}
+
+kable(sapply(attrition %>% select(gender, education, job_role), function(x) table(x)))
+
+table(attrition$gender)
+table(attrition$education)
+table(attrition$job_role)
+
+```
+
+
+#d	Give the counts (again, table) of management positions.
+```{r}
+table(attrition %>% filter(job_role  %in% 
+                           c('Manager','Manufacturing Director', 'Research Director')) %>% 
+        mutate(job_role = as.character(job_role)) %>%
+        select(job_role))
+
+```
+#4.	Deeper Analysis and Visualization 
+#a	Note: You should make all of these appealing looking.  Remember to include things like a clean, informative title, axis labels that are in plain English, and readable axis values that do not overlap.
+
+#b	Create bar charts in ggplot or similar. The bars should be in descending order, Use any color palette of your choice other than the default.
+
+#c	Is there a relationship between Age and Income?  Create a scatterplot and make an assessment of whether there is a relationship.  Color each point based on the Gender of the participant.  You're welcome to use lm() or similar functions to back up your claims.
+```{r}
+
+attrition %>% 
+  ggplot(aes(x = age, y = monthly_income, color = gender))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+  scale_color_manual(values=c('blue','red'))+
+  labs(title = 'Relationship between age and monthly income',
+       x = 'Age (>18)',
+       y = 'Monthly income')
+
+
+attrition %>% 
+  ggplot(aes(x = age, y = log(monthly_income), color = gender))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+  scale_color_manual(values=c('blue','red'))
+
+
+```
+
+#d	What about Life Satisfaction?  Create another scatterplot.  Is there a discernible relationship there to what?   
+
+```{r}
+attrition <- attrition %>% 
+  mutate(life_satisfaction = job_satisfaction +relationship_satisfaction + environment_satisfaction)
+
+
+attrition %>% 
+  ggplot(mapping = aes(x = life_satisfaction, y = monthly_income, color = gender)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme(legend.position = "bottom") +
+    labs(x = "Life Satisfaction",
+         y = "Monthly Income",
+         color = "Gender",
+         title = "Relationship between life satisfaction and monthly income",
+         subtitle = "Male vs Female")
+
+
+
+
+attrition %>% 
+  ggplot(mapping = aes(x = life_satisfaction, y = work_life_balance, color = gender)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme(legend.position = "bottom") +
+    labs(x = "Life Satisfaction",
+         y = "work life balance",
+         color = "Gender",
+         title = "Relationship between life satisfaction and work life balance",
+         subtitle = "Male vs Female")
+  
+
+```
+
+```{r}
+model1 <- lm(life_satisfaction ~ age + gender + monthly_income + education + performance_rating + num_companies_worked + work_life_balance, data=attrition)
+summary(model1)
+```
+
+
+```{r}
+
+model2 <- lm(life_satisfaction ~ ., data= select(attrition, -over18, -job_satisfaction,
+                                                 -environment_satisfaction, -relationship_satisfaction, -attrition, -employee_count, -standard_hours))
+summary(model2)
+```
+
+
+```{r}
+model3 <- step(model2, direction = "both")
+summary(model3)
+m3 <- summary(model3)$coefficients
+kable(m3)
+```
+
+```{r}
+attrition_logistic <- attrition %>% 
+  mutate(attrition = if_else(attrition == "No", 0,1))
+                            
+                               
+
+
+model4 <- glm(attrition ~ ., data = select(attrition_logistic, -over18, -life_satisfaction,
+                                           -standard_hours, -employee_count),
+                                           family = binomial(link = "logit"))
+
+summary(model4) 
+             
+```
+
+
+```{r}
+model5 <- step(model4, direction = "both")
+```
+
+
+```{r}
+summary(model5)
+```
+
+```{r}
+manager <- attrition_logistic %>% 
+  filter(job_role %in% c("Manager", "Manufacturing Director", "Research Director"))
+mgmt <- table(manager$attrition)
+
+kable(mgmt)
+```
+
+```{r}
+non_manager <- attrition_logistic %>% 
+  filter(!job_role %in% c("Manager", "Manufacturing Director", "Research Director"))
+nonmgmt <- table(non_manager$attrition)
+
+kable(nonmgmt)
+```
+
+
+```{r}
+model5 <- step(model4, direction = "both")
+```
+
+```{r}
+model6 <- glm(attrition ~ ., data = select(non_manager, -over18, -life_satisfaction,
+                                           -standard_hours, -employee_count),
+                                           family = binomial(link = "logit"))
+```
+
+```{r}
+model7 <- step(model6, direction = "both")
+```
+
+```{r}
+summary(model7)
+m7 <- summary(model7)$coefficients
+kable(m7)
+```
+
+
