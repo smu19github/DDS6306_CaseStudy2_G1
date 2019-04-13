@@ -1,6 +1,6 @@
 ---
-title: "CaseStudy_02Markdown"
-author: "Heindel Adu"
+title: "DS6306 CaseStudy 02"
+author: "Heindel Adu, Eric Fu, Stephen Johnson and Anthony Yueng"
 date: "3/21/2019"
 output: html_document
 ---
@@ -8,30 +8,94 @@ output: html_document
 ```{r setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-```{r libraryload}
+
+```{r libraryload, message=FALSE}
 library(tidyverse)
 library(dplyr)
-
+library(plotly)
+library(circlize)
+library(caret)
 library(readr)
 cs2data <- read_csv("CaseStudy2-data.csv")
 cs2data
-View(cs2data)
+names(cs2data)
 head(cs2data)
 ```
+
+### Exploratory Data Analysis
+
 ```{r}
+cs2data %>% summarise_all(list(name = ~n_distinct(.)))
+unique(cs2data$BusinessTravel)
+unique(cs2data$Age)
+unique(cs2data$Attrition)
+unique(cs2data$BusinessTravel)
+unique(cs2data$Department)
+unique(cs2data$DistanceFromHome)
+unique(cs2data$Education)
+unique(cs2data$EducationField)
+unique(cs2data$EnvironmentSatisfaction)
+unique(cs2data$Gender)
+unique(cs2data$HourlyRate)
+unique(cs2data$JobInvolvement)
+unique(cs2data)
 cs2data %>% summarise_all(funs(n_distinct(.)))
-unique(CaseStudy2_data$BusinessTravel)
-unique(CaseStudy2_data$Age)
-unique(CaseStudy2_data$Attrition)
-unique(CaseStudy2_data$BusinessTravel)
-unique(CaseStudy2_data$Department)
-unique(CaseStudy2_data$DistanceFromHome)
-unique(CaseStudy2_data$Education)
-unique(CaseStudy2_data$EducationField)
-unique(CaseStudy2_data$EnvironmentSatisfaction)
-unique(CaseStudy2_data$Gender)
-unique(CaseStudy2_data$HourlyRate)
-unique(CaseStudy2_data$JobInvolvement)
-unique(CaseStudy2_data)
-CaseStudy2_data %>% summarise_all(funs(n_distinct(.)))
+```
+
+```{r}
+library(plotly)
+p <- cs2data %>%
+  plot_ly(width = 1000, height = 600) %>%
+  add_trace(type = 'parcoords',
+          line = list(color = ~Department,
+                      colorscale = 'Jet',
+                      showscale = TRUE,
+                      reversescale = TRUE,
+                      cmin = -4000,
+                      cmax = -100),
+          dimensions = list(
+            list(range = c(~min(Age),~max(Age)),
+                 constraintrange = c(15,65),
+                 label = 'Age', values = ~Age),
+            list(range = c(~min(DailyRate),~max(DailyRate)),
+                 label = 'Daily Rate', values = ~DailyRate),
+            list(tickvals = c(0,0.5,1,2,3),
+                 ticktext = c('A','AB','B','Y','Z'),
+                 label = 'Cyclinder Material', values = ~cycMaterial),
+            list(range = c(-1,4),
+                 tickvals = c(0,1,2,3),
+                 label = 'Block Material', values = ~blockMaterial),
+            list(range = c(~min(totalWeight),~max(totalWeight)),
+                 visible = TRUE,
+                 label = 'Total Weight', values = ~totalWeight),
+            list(range = c(~min(assemblyPW),~max(assemblyPW)),
+                 label = 'Assembly Penalty Weight', values = ~assemblyPW),
+            list(range = c(~min(HstW),~max(HstW)),
+                 label = 'Height st Width', values = ~HstW),
+            list(range = c(~min(minHW),~max(minHW)),
+                 label = 'Min Height Width', values = ~minHW),
+            list(range = c(~min(minWD),~max(minWD)),
+                 label = 'Min Width Diameter', values = ~minWD),
+            list(range = c(~min(rfBlock),~max(rfBlock)),
+                 label = 'RF Block', values = ~rfBlock)
+            )
+          )
+
+
+```
+
+```{r}
+#Create data
+name=c(3,10,10,3,6,7,8,3,6,1,2,2,6,10,2,3,3,10,4,5,9,10)
+feature=paste("feature ", c(1,1,2,2,2,2,2,3,3,3,3,3,3,3,4,4,4,4,5,5,5,5) , sep="")
+dat <- data.frame(name,feature)
+dat <- with(dat, table(name, feature))
+head(dat)
+ 
+# Charge the circlize library
+library(circlize)
+ 
+# Make the circular plot
+chordDiagram(as.data.frame(dat), transparency = 0.5)
+
 ```

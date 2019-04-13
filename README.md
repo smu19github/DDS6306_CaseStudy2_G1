@@ -91,3 +91,5 @@ b	Create bar charts in ggplot or similar. The bars should be in descending order
 c	Is there a relationship between Age and Income?  Create a scatterplot and make an assessment of whether there is a relationship.  Color each point based on the Gender of the participant.  You’re welcome to use lm() or similar functions to back up your claims.
 
 d	What about Life Satisfaction?  Create another scatterplot.  Is there a discernible relationship there to what?   
+
+
