@@ -1,0 +1,146 @@
+---
+title: "Case Study 2"
+author: "Eric Ross Fu"
+date: "April 9, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Exploratory Analysis on Case Study 2 Data
+
+```{r}
+library("xlsx")
+data <- read.xlsx(file="CaseStudy2-data.xlsx", header=TRUE, sheetIndex = 1)
+```
+
+###Clean the data
+```{r}
+library(plyr)
+data$Attrition <- revalue(data$Attrition, c("Yes"=1, "No"=0))
+ 
+data$BusinessTravel <- revalue(data$BusinessTravel, 
+  c("Non-Travel"=0, "Travel_Rarely"=1, "Travel_Frequently"=3))
+ 
+data$Gender <- revalue(data$Gender, c("Male"=0, "Female"=1))
+ 
+data$OverTime <- revalue(data$OverTime, c("Yes"=1, "No"=0))
+ 
+data$MaritalStatus <- revalue(data$MaritalStatus, c("Single"=0, "Divorced"=1, "Married"=2))
+ 
+data$Department <- revalue(data$Department, c("Research & Development"=0, "Sales"=1, "Human Resources"=2))
+ 
+data$EducationField <- revalue(data$EducationField, c("Other"=0, "Human Resources"=1, "Technical Degree"=2, "Life Sciences"=3, "Marketing"=4, "Medical"=5))
+ 
+data$JobRole <- revalue(data$JobRole, c("Sales Representative"=0, "Laboratory Technician"=1, "Research Scientist"=2, "Human Resources"=3, "Sales Executive"=4, "Manufacturing Director"=5, "Healthcare Representative"=6, 
+"Research Director"=7, "Manager"=8))
+```
+
+###Drop variables
+```{r}
+data$EmployeeCount <- NULL
+data$Over18 <- NULL
+data$StandardHours<- NULL
+```
+
+###Exploring Relationships Between Monthly Rate, Monthly Income, Daily Rate, Hourly Rate
+```{r}
+###No real correlation
+plot(data$MonthlyIncome, data$MonthlyRate)
+```
+```{r}
+plot(data$HourlyRate, data$MonthlyRate)
+```
+```{r}
+plot(data$DailyRate, data$MonthlyRate)
+```
+```{r}
+plot(data$HourlyRate, data$DailyRate)
+```
+
+###Looking at Income Variables Some more
+```{r}
+hist(data$MonthlyIncome)
+```
+```{r}
+hist(data$MonthlyRate)
+#Makes No Sense
+```
+```{r}
+hist(data$DailyRate)
+#Makes No Sense
+```
+```{r}
+hist(data$HourlyRate)
+#Makes No Sense
+```
+
+###Exploring Satisfaction
+```{r}
+unique(data$JobSatisfaction)
+unique(data$PerformanceRating)
+```
+```{r}
+plot(data$Attrition, data$JobSatisfaction, xlab="1 is Yes-Attrition", main="Job Satisfaction vs Attrition")
+```
+```{r}
+plot(data$Attrition, data$EnvironmentSatisfaction, main="Environment Satisfaction vs Attrition")
+```
+```{r}
+plot(data$JobRole, data$JobSatisfaction, main="Job Role vs. Job Satisfaction")
+```
+```{r}
+plot(data$Department, data$EnvironmentSatisfaction, main="Department vs Environment Satisfaction")
+```
+
+###Converting Factors to Numeric type
+```{r}
+data$Attrition <- as.numeric(as.character(data$Attrition))
+data$BusinessTravel<-as.numeric(as.character(data$BusinessTravel))
+data$Department <- as.numeric(as.character(data$Department))
+data$EducationField<-as.numeric(as.character(data$EducationField))
+data$Gender <- as.numeric(as.character(data$Gender))
+data$JobRole <- as.numeric(as.character(data$JobRole))
+data$MaritalStatus <- as.numeric(as.character(data$MaritalStatus))
+data$OverTime <- as.numeric(as.character(data$OverTime))
+```
+
+###How Many People Left?
+```{r}
+as.data.frame(table(data$Attrition))
+```
+
+###Correlation Heatmap
+```{r}
+library(ggplot2)
+library(reshape2)
+```
+```{r}
+cormat <- round(cor(data),2)
+cormat
+```
+```{r}
+melted_cormat <- melt(cormat)
+q <- ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) + geom_tile()
+q +ggtitle("Correlation Between Case Study Variables")+ theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
+```{r}
+
+```
