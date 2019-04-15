@@ -1,0 +1,123 @@
+---
+title: "Attrition Predictor Analysis"
+
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+    social: [ "twitter", "facebook", "menu"]
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(knitr)
+library(DT)
+library(rpivotTable)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(openintro)
+library(highcharter)
+library(ggvis)
+```
+
+
+```{r}
+data <- read.csv("~/Documents/Projects/SMU/rProjects/CaseStudy_02/CaseStudy_02/NumData.csv")
+#str(data)
+```
+
+```{r}
+mycolors <- c("blue", "#FFC125", "darkgreen", "darkorange", "darkblue")
+```
+
+Interactive Data Visualization
+=====================================
+Row
+-------------------------------------
+### Attrition Count
+
+```{r}
+valueBox(paste("Attrition"),
+         color = "darkblue")
+#unique.(data$Attrition)
+
+#data %>%
+#  summarise(Attrition = n())
+```
+
+### Number of Employee Data Reviewed
+
+```{r}
+
+valueBox(length(data$Attrition),
+         icon = "fa-users")
+```
+
+### **Monthly Income**
+```{r}
+gauge(round(min(data$MonthlyIncome),
+            digits = 2),
+            min = 0,
+            max = 25000,
+      label = "Min Monthly Income",
+            gaugeSectors(success = c(15000, 25000),
+                         warning = c(5000,15000),
+                         danger = c(0, 5000),
+                         colors = c("green", "yellow", "red")))
+```
+
+```{r}
+gauge(round(mean(data$MonthlyIncome),
+            digits = 2),
+            min = 0,
+            max = 25000,
+       label = "Avg Monthly Income",
+            gaugeSectors(success = c(15000, 25000),
+                         warning = c(5000,15000),
+                         danger = c(0, 5000),
+                         colors = c("green", "yellow", "red")))
+
+```
+
+```{r}
+gauge(round(max(data$MonthlyIncome),
+            digits = 2),
+            min = 0,
+            max = 25000,
+       label = "Max Monthly Income",
+            gaugeSectors(success = c(15000, 25000),
+                         warning = c(5000,15000),
+                         danger = c(0, 5000),
+                         colors = c("green", "yellow", "red")))
+```
+
+### Yes on Attrition
+
+```{r, Yes}
+valueBox(sum(data$Attrition == "Yes"),
+         icon = 'fa-user-o')
+
+```
+
+
+### No on Attrition
+
+```{r, No}
+valueBox(sum(data$Attrition == "No"),
+         icon = 'fa-user')
+```
+
+
+
+About Report
+========================================
+
+##Project By:Heindel Adu, Stephen Johnson, Ross Fu, Anthony Yeung
+Confidential: HIGHLY!
+
+
+
+
+
