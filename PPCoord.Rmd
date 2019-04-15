@@ -1,0 +1,95 @@
+```{r}
+Sys.setenv("plotly_username"="smu19github")
+Sys.setenv("plotly_api_key"="uHZTO8vSeqMDbbAqZcVp")
+library(plotly)
+packageVersion('plotly')
+
+df <- read.csv("https://raw.githubusercontent.com/bcdunbar/datasets/master/parcoords_data.csv")
+View(df)
+summary(df)
+head(df)
+p <- df %>%
+  plot_ly(width = 1000, height = 600) %>%
+  add_trace(type = 'parcoords',
+          line = list(color = ~colorVal,
+                      colorscale = 'Jet',
+                      showscale = TRUE,
+                      reversescale = TRUE,
+                      cmin = -4000,
+                      cmax = -100),
+          dimensions = list(
+            list(range = c(~min(blockHeight),~max(blockHeight)),
+                 constraintrange = c(100000,150000),
+                 label = 'Block Height', values = ~blockHeight),
+            list(range = c(~min(blockWidth),~max(blockWidth)),
+                 label = 'Block Width', values = ~blockWidth),
+            list(tickvals = c(0,0.5,1,2,3),
+                 ticktext = c('A','AB','B','Y','Z'),
+                 label = 'Cyclinder Material', values = ~cycMaterial),
+            list(range = c(-1,4),
+                 tickvals = c(0,1,2,3),
+                 label = 'Block Material', values = ~blockMaterial),
+            list(range = c(~min(totalWeight),~max(totalWeight)),
+                 visible = TRUE,
+                 label = 'Total Weight', values = ~totalWeight),
+            list(range = c(~min(assemblyPW),~max(assemblyPW)),
+                 label = 'Assembly Penalty Weight', values = ~assemblyPW),
+            list(range = c(~min(HstW),~max(HstW)),
+                 label = 'Height st Width', values = ~HstW),
+            list(range = c(~min(minHW),~max(minHW)),
+                 label = 'Min Height Width', values = ~minHW),
+            list(range = c(~min(minWD),~max(minWD)),
+                 label = 'Min Width Diameter', values = ~minWD),
+            list(range = c(~min(rfBlock),~max(rfBlock)),
+                 label = 'RF Block', values = ~rfBlock)
+            )
+          )
+
+chart_link = api_create(p, filename="parcoords-advanced")
+chart_link
+```
+
+```{r}
+df1 <- NumData1
+head(df1)
+summary(df1)
+names(df1)
+p1 <- df1 %>%
+  plot_ly(width = 1000, height = 600) %>%
+  add_trace(type ='parcoords',
+            line = list(color = ~AttritionN,
+                        colorscale = 'Jet',
+                        showscale = TRUE,
+                        reversescale = TRUE,
+                        cmin = 0,
+                        cmax = 1),
+            dimensions = list(
+             list(tickvals = c(0,1),
+                 ticktext = c('Yes','No'),
+                 label = 'Attrition', values = ~Attrition),
+            list(range = c(~min(Age),~max(Age)),
+                 label = 'Age', values = ~Age),
+            list(range = c(~min(BusinessTravelN),~max(BusinessTravelN)),
+                 label = 'Business Travel', values = ~BusinessTravelN),
+            list(range = c(-1,4),
+                 tickvals = c(0,1,2,3),
+                 label = 'Block Material', values = ~MonthlyIncome),
+            list(range = c(~min(totalWeight),~max(totalWeight)),
+                 visible = TRUE,
+                 label = 'Total Weight', values = ~totalWeight),
+            list(range = c(~min(assemblyPW),~max(assemblyPW)),
+                 label = 'Assembly Penalty Weight', values = ~assemblyPW),
+            list(range = c(~min(HstW),~max(HstW)),
+                 label = 'Height st Width', values = ~HstW),
+            list(range = c(~min(minHW),~max(minHW)),
+                 label = 'Min Height Width', values = ~minHW),
+            list(range = c(~min(minWD),~max(minWD)),
+                 label = 'Min Width Diameter', values = ~minWD),
+            list(range = c(~min(rfBlock),~max(rfBlock)),
+                 label = 'RF Block', values = ~rfBlock)
+            
+            )
+            )
+chart_link = api_create(p1, filename="Attrition Predictor Analysis")
+chart_link
+```

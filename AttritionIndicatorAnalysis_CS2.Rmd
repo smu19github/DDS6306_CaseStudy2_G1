@@ -1,0 +1,70 @@
+---
+title: "Attrition Indicator Analysis"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(knitr)
+library(DT)
+library(rpivotTable)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(openintro)
+library(highcharter)
+library(ggvis)
+library(caret)
+library(FactoMineR)
+```
+
+```{r, Data}
+df1 <-cs2data
+df1[1:10,]
+str(df1)
+```
+```{r}
+df1$Attrition = as.factor(df1$Attrition)
+df1$BusinessTravel = as.factor(df1$BusinessTravel)
+df1$Department = as.factor(df1$Department)
+df1$EducationField = as.factor(df1$EducationField)
+df1$Gender = as.factor(df1$Gender)
+df1$JobRole = as.factor(df1$JobRole)
+df1$MaritalStatus = as.factor(df1$MaritalStatus)
+df1$Over18 = as.factor(df1$Over18)
+df1$OverTime = as.factor(df1$OverTime)
+
+summary(df1)
+
+pc <- princomp(df1, cor = T, scores = T)
+cor(df1)
+View(df1)
+res <- MCA(df1, quanti.sup = 19., quali.sup = c(20:36))
+```
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+
+```
+
+### Chart C
+
+```{r}
+
+```
+

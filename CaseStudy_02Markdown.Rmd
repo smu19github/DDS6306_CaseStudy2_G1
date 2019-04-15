@@ -16,10 +16,14 @@ library(plotly)
 library(circlize)
 library(caret)
 library(readr)
+```
+
+```{r, data}
 cs2data <- read_csv("CaseStudy2-data.csv")
 cs2data
 names(cs2data)
 head(cs2data)
+str(cs2data)
 ```
 
 ### Exploratory Data Analysis
@@ -98,4 +102,14 @@ library(circlize)
 # Make the circular plot
 chordDiagram(as.data.frame(dat), transparency = 0.5)
 
+```
+
+Data Visualization
+=========================================
+Row
+----------------------------------------
+###Exploratory Data Analysis
+
+```{r}
+valueBox(length(cs2data$Attrition))
 ```
