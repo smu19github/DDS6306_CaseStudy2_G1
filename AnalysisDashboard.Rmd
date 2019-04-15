@@ -5,7 +5,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: fill
-    social: [ "twitter", "facebook", "menu"]
+    social: ["github","linkedin", "twitter", "facebook", "menu"]
     source_code: embed
 ---
 
@@ -24,7 +24,11 @@ library(ggvis)
 
 
 ```{r}
+#"data" has categorical data converted to numerical
+# "data2" has a mixed data types
 data <- read.csv("~/Documents/Projects/SMU/rProjects/CaseStudy_02/CaseStudy_02/NumData.csv")
+data2 <- read.csv("~/Documents/Projects/SMU/rProjects/CaseStudy_02/CaseStudy_02/CaseStudy2-data.csv")
+View(data)
 #str(data)
 ```
 
@@ -109,7 +113,59 @@ valueBox(sum(data$Attrition == "No"),
          icon = 'fa-user')
 ```
 
+Row
+-------------------------------------------------
+```{r}
+#summary(data2$Attrition)
+#str(data2$Attrition)
+#p0 <- ggplot2::data2 %>% sum(JobRole, Attrition) %>%
+#  plot_ly(x = ~JobRole, y = ~n, color = ~Attrition)
+p1 <- data2 %>%
+  group_by(JobRole) %>%
+  summarise(count = n()) %>%
+  plot_ly(x = ~JobRole,
+          y = ~count,
+          color = 'blue',
+          type = 'bar') %>%
+  layout(xaxis = list(title = "Job Role"),
+    yaxis = list(title = 'Count'))
+p1
+#names(data2)
+```
 
+
+Data Table
+========================================
+
+```{r}
+datatable(data2,
+          caption = "Attrition Data",
+          rownames = TRUE,
+          filter = "top",
+          options = list(pageLength = 25))
+```
+
+Pivot Table - Numeric
+=========================================
+
+```{r}
+rpivotTable(data,
+            aggregatorName = "Count",
+            cols= "Attrition",
+            rows = "JobRole",
+            rendererName = "Heatmap")
+```
+
+Pivot Table - Categorical
+=========================================
+
+```{r}
+rpivotTable(data2,
+            aggregatorName = "Count",
+            cols= "Attrition",
+            rows = "JobRole",
+            rendererName = "Heatmap")
+```
 
 About Report
 ========================================
