@@ -407,21 +407,12 @@ t <- tuneRF(training[,-31], training[,31],
 
 Summary
 ========================================
-<div align='center', padding: 50px>
+<div align='center', padding: 10px>
 <br>
 <h1 style="font-size:50px;"><b>Key Insights</b></h1>
 <hr>
-<br>Company Demographics
-<br> <ul>Females = 40%</ul>
-<br> <ul>Males = 60%</ul>
-<br> <ul>Females = 40%</ul>
-<br> <ul>Males = 60%</ul>
+<br><img class="one" src="kta.png" width="80%" ><br>
 <br>
-<br>Over Time is a major contributor of attrition
-<br>
-  <h1>Project By:</h1>
-  <br><h2>Heindel Adu, Stephen Johnson, Ross Fu, Anthony Yeung </h2> </br>
-  <h3>Classification: <br> <b> CONFIDENTIAL REPORT! </b><br></h3>
 </div>
 
 
