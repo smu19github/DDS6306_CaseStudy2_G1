@@ -3,6 +3,7 @@ title: "CS2_SJ"
 author: "Stephen Johnson"
 date: "April 9, 2019"
 output: html_document
+sourcecode: embed
 ---
 
 ##2. Clean your Raw Data
