@@ -45,15 +45,11 @@ About Report
 ========================================
 <div align='center', padding: 50px>
 <br>
-<h1 style="font-size:60px;"><b>Attrition Predictor Analysis</b></h1>
+<h1 style="font-size:70px;"><b>Attrition Predictor Analysis</b></h1>
 <hr>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><img class="one" src="logo2.png" width="250" height="250"><br>
 <br>
 <br>
   <h1>Project By:</h1>
@@ -250,7 +246,7 @@ Row
 </ol>
 </div>
 ```{r}
-### **Box Plot of Top State**
+### **Box Plot of Top JobRole**
 #data2 %>%
 #         group_by(JobRole) %>%
 #         ggvis(~JobRole, ~MonthlyIncome, fill = ~JobRole) %>%
@@ -409,7 +405,24 @@ t <- tuneRF(training[,-31], training[,31],
        improve = 0.05)
 ```
 
-
+Summary
+========================================
+<div align='center', padding: 50px>
+<br>
+<h1 style="font-size:50px;"><b>Key Insights</b></h1>
+<hr>
+<br>Company Demographics
+<br> <ul>Females = 40%</ul>
+<br> <ul>Males = 60%</ul>
+<br> <ul>Females = 40%</ul>
+<br> <ul>Males = 60%</ul>
+<br>
+<br>Over Time is a major contributor of attrition
+<br>
+  <h1>Project By:</h1>
+  <br><h2>Heindel Adu, Stephen Johnson, Ross Fu, Anthony Yeung </h2> </br>
+  <h3>Classification: <br> <b> CONFIDENTIAL REPORT! </b><br></h3>
+</div>
 
 
 
