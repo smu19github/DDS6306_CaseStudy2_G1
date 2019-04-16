@@ -223,6 +223,9 @@ p5
 Row
 ---------------------------------------------
 <h3><b> Comparison of Monthly Income with other variables.</b></h3>
+  <li> Age </li>
+  <li> Time in Current Role </li>
+  <li> Time with Company </li>
 
 ```{r}
 ### **Box Plot of Top State**
