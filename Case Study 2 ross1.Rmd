@@ -116,6 +116,9 @@ as.data.frame(table(data$Attrition))
 ```{r}
 library(ggplot2)
 library(reshape2)
+library(caret)
+library(mlr)
+library(magrittr)
 ```
 ```{r}
 cormat <- round(cor(data),2)
@@ -126,21 +129,58 @@ melted_cormat <- melt(cormat)
 q <- ggplot(data = melted_cormat, aes(x=Var1, y=Var2, fill=value)) + geom_tile()
 q +ggtitle("Correlation Between Case Study Variables")+ theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
-```{r}
 
+###Dropping More Variables
+```{r}
+data$DailyRate <- NULL
+data$MonthlyRate <- NULL
+data$HourlyRate <- NULL
+data$JobSatisfaction <- NULL
+data$RelationshipSatisfaction <- NULL
+data$WorkLifeBalance <- NULL
+data$TrainingTimesLastYear <- NULL
+data$YearsSinceLastPromotion <- NULL
+data$Department <- NULL
+data$DistanceFromHome <- NULL
+data$Education <- NULL
+data$EducationField <- NULL
+data$EmployeeNumber <- NULL
+data$Gender <- NULL
+data$NumCompaniesWorked <- NULL
+data$PercentSalaryHike <- NULL
+data$PerformanceRating <- NULL
+data$WorkLifeBalance <- NULL
+data$EnvironmentSatisfaction <- NULL
+data$BusinessTravel <- NULL
+```
+###Time for Machine Learning
+
+```{r}
+feature1 <-data[1:1470, c("Age", "JobInvolvement","JobLevel","JobRole","MaritalStatus","MonthlyIncome","OverTime","StockOptionLevel","TotalWorkingYears","YearsAtCompany","YearsInCurrentRole","YearsWithCurrManager")]
+
+response <- as.factor(data$Attrition)
+
+feature1$Survived=as.factor(data$Attrition)
+
+set.seed(204)
+
+ind=createDataPartition(feature1$Survived, times=1, p=0.8, list=FALSE)
+
+train_val=feature1[ind,]
+test_val = feature1[-ind,]
 ```
 ```{r}
-
+round(prop.table(table(data$Attrition)*100),digits = 1)
+round(prop.table(table(train_val$Attrition)*100),digits = 1)
 ```
 ```{r}
+library(randomForest)
+set.seed(402)
 
+rf1<- randomForest(x=train_val[,-13], y=train_val[,13], importance=TRUE, ntree = 1000)
+
+rf1
 ```
 ```{r}
-
-```
-```{r}
-
-```
-```{r}
-
+varImpPlot(rf1)
 ```
